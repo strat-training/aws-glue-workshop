@@ -1,0 +1,9 @@
+{
+  "_description": "Template configuration for AWS Glue Console arguments. Copy to glue_job_config.json and replace the placeholders.",
+  "--S3_BUCKET": "s3://qbs-workshop-bucket",
+  "--DATABASE_NAME": "qbs_bronze",
+  "--TARGET_DATABASE": "qbs_silver",
+  "--TABLE_NAME": "sales_raw",
+  "--CONFIG_KEY": "config/sales_config.json",
+  "--datalake-formats": "iceberg"
+}
