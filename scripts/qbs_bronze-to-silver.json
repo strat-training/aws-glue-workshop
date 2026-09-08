@@ -1,0 +1,47 @@
+{
+  "name": "qbs_bronze-to-silver",
+  "jobMode": "SCRIPT",
+  "description": "Configuration-driven Bronze-to-Silver sales pipeline for the QBS workshop",
+  "role": "arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/qbs-AWSGlueServiceRoleAccess",
+  "executionProperty": {
+    "maxConcurrentRuns": 1
+  },
+  "command": {
+    "name": "glueetl",
+    "scriptLocation": "s3://YOUR_GLUE_ASSETS_BUCKET/scripts/qbs_bronze-to-silver.py",
+    "pythonVersion": "3"
+  },
+  "defaultArguments": {
+    "--enable-glue-datacatalog": "",
+    "--job-bookmark-option": "job-bookmark-disable",
+    "--S3_BUCKET": "s3://qbs-workshop-bucket",
+    "--TempDir": "s3://YOUR_GLUE_ASSETS_BUCKET/temporary/",
+    "--enable-metrics": "",
+    "--enable-spark-ui": "true",
+    "--spark-event-logs-path": "s3://YOUR_GLUE_ASSETS_BUCKET/sparkHistoryLogs/",
+    "--enable-job-insights": "true",
+    "--TARGET_DATABASE": "qbs_silver",
+    "--DATABASE_NAME": "qbs_bronze",
+    "--enable-observability-metrics": "true",
+    "--conf": "spark.eventLog.rolling.enabled=true --conf spark.sql.catalog.glue_catalog.glue.skip-name-validation=true",
+    "--TABLE_NAME": "sales_raw",
+    "--enable-continuous-cloudwatch-log": "true",
+    "--CONFIG_KEY": "config/sales_config.json",
+    "--job-language": "python",
+    "--datalake-formats": "iceberg"
+  },
+  "maxRetries": 0,
+  "allocatedCapacity": 10,
+  "timeout": 480,
+  "maxCapacity": 10.0,
+  "glueVersion": "5.1",
+  "numberOfWorkers": 10,
+  "workerType": "G.1X",
+  "executionClass": "STANDARD",
+  "sourceControlDetails": {
+    "provider": "GITHUB",
+    "repository": "aws-glue-workshop",
+    "branch": "feature/qbs-generic-workshop",
+    "folder": "scripts"
+  }
+}
