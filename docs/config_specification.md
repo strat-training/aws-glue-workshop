@@ -39,3 +39,15 @@ Define the target fact table, its payload columns, and the Iceberg partition col
 ## Example payload
 
 See [`config/sales_config.json`](../config/sales_config.json) for the complete working configuration used by the workshop.
+
+## Gold job configuration
+
+The Silver-to-Gold job does not require the sales JSON configuration. Its Glue arguments identify the source and target catalogs:
+
+```text
+--S3_BUCKET=s3://qbs-workshop-bucket
+--DATABASE_NAME=qbs_silver
+--TARGET_DATABASE=qbs_gold
+```
+
+The job reads `fact_sales` from the source database and recreates the five Gold KPI tables documented in [`architecture.md`](architecture.md). This separation keeps data-quality and schema-mapping rules in the Bronze-to-Silver configuration while leaving analytical KPI logic in the Gold job.
