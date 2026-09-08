@@ -61,7 +61,7 @@ The data lake uses the following S3 prefixes:
 
 | Prefix | Purpose |
 |---|---|
-| `01_raw/` | Incoming sales files |
+| `01_bronze/` | Incoming sales files |
 | `02_silver/` | Silver Iceberg warehouse location |
 | `03_gold/` | Gold Iceberg warehouse location |
 | `04_quarantine/invalid_sales_raw/` | Rejected records in Parquet format |
@@ -71,7 +71,7 @@ Replace the bucket, account, region, and IAM role values with those from the dep
 ## Data flow
 
 ```text
-S3 01_raw/sales.csv
+S3 01_bronze/sales.csv
 				|
 				v
 Glue Catalog: qbs_bronze.sales_raw
@@ -165,7 +165,7 @@ The Gold job uses `createOrReplace()` for deterministic full refreshes of these 
 ## Getting started
 
 1. Create the S3 bucket and prefixes listed above.
-2. Upload the source sales file under `01_raw/`.
+2. Upload the source sales file under `01_bronze/`.
 3. Create the `qbs_bronze` database and `sales_raw` crawler/table in AWS Glue.
 4. Upload `config/sales_config.json` to the configured S3 path.
 5. Create the `qbs_dqdl_ruleset` ruleset in AWS Glue Data Quality.
