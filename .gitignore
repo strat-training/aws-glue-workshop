@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# AWS & Environment
+.aws/
+*.env
+
+# VS Code
+.vscode/
+
+# Local AWS Glue Job Configurations
+glue_job_config.json
+*.local.json
+
+.DS_Store
+
+# Local datasets
+dataset/

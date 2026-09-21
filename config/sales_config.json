@@ -1,0 +1,89 @@
+{
+  "columns": {
+    "order id": {
+      "target_name": "order_id",
+      "type": "string"
+    },
+    "date": {
+      "target_name": "order_date",
+      "type": "date",
+      "format": [
+        "dd-MM-yyyy",
+        "yyyy-MM-dd"
+      ]
+    },
+    "purchase type": {
+      "target_name": "purchase_type",
+      "type": "string"
+    },
+    "payment method": {
+      "target_name": "payment_method",
+      "type": "string"
+    },
+    "city": {
+      "target_name": "city",
+      "type": "string"
+    },
+    "manager": {
+      "target_name": "manager",
+      "type": "string"
+    },
+    "product": {
+      "target_name": "product_name",
+      "type": "string"
+    },
+    "price": {
+      "target_name": "unit_price",
+      "type": "double"
+    },
+    "quantity": {
+      "target_name": "quantity",
+      "type": "double"
+    }
+  },
+  "deduplication": {
+    "primary_keys": ["order_id"],
+    "order_by": "order_date"
+  },
+  "dqdl_ruleset_name": "qbs_dqdl_ruleset",
+  "data_quality": {
+    "not_null": ["order_id", "order_date", "unit_price", "quantity"],
+    "greater_than_zero": ["unit_price", "quantity"],
+    "allowed_branches": [
+      {"city": "London", "manager": "Tom Jackson"},
+      {"city": "Madrid", "manager": "Pablo Perez"},
+      {"city": "Lisbon", "manager": "Joao Silva"},
+      {"city": "Berlin", "manager": "Walter Muller"},
+      {"city": "Paris", "manager": "Remy Monet"}
+    ],
+    "allowed_products": [
+      "Fries",
+      "Beverages",
+      "Sides & Other",
+      "Burgers",
+      "Chicken Sandwiches"
+    ]
+  },
+  "dimensions": {
+    "branch": {
+      "natural_keys": ["city", "manager"]
+    },
+    "product": {
+      "natural_keys": ["product_name"]
+    }
+  },
+  "fact_table_name": "fact_sales",
+  "fact_columns": [
+    "order_id",
+    "order_date",
+    "purchase_type",
+    "payment_method",
+    "unit_price",
+    "quantity",
+    "total_amount",
+    "is_fractional_qty",
+    "month",
+    "year"
+  ],
+  "partition_by": ["year", "month"]
+}
